@@ -1,0 +1,87 @@
+## Opening Friday
+
+- Desktop shortcut: **Friday Assistant**
+- Batch file: `run.bat`
+- Voice: Say **"Friday"** (requires background listener)
+
+---
+
+## Using the Interface
+
+### Sidebar (left)
+
+- Live clock and date
+- Status: READY, LISTENING, THINKING
+- Voice status
+- Internet status
+
+### Chat panel (center)
+
+- Your messages appear on the right
+- Friday's replies on the left (cyan border)
+- Blocked commands show in pink
+
+### Command bar (bottom)
+
+- Type commands and press Enter or SEND
+- MIC button toggles in-app voice listening
+
+---
+
+## Voice Commands
+
+Always start with **"Friday"** (or your custom wake word).
+
+### Apps and browser
+
+- "Friday, open Chrome"
+- "Friday, open Brave"
+- "Friday, open Spotify"
+- "Friday, open YouTube"
+
+### Web and information
+
+- "Friday, search for SpaceX launches"
+- "Friday, what's happening in the world today"
+- "Friday, weather in Mumbai"
+- "Friday, what time is it"
+- "Friday, tell me a joke"
+- "Friday, help"
+
+### Exit
+
+- "Friday, goodbye"
+
+---
+
+## What Friday Cannot Do
+
+For your safety, Friday **refuses**:
+
+- Opening files or folders
+- Reading Documents, Desktop, Downloads
+- Running cmd, PowerShell, or scripts
+- Shutting down or restarting the PC
+
+---
+
+## Background Wake Word
+
+When the listener is active:
+
+1. Say **"Friday"** — app opens
+2. Say **"Friday, open Chrome"** — app opens and runs command
+
+Enable at login: `Enable Friday at Login.bat`
+
+---
+
+## Customization
+
+Edit `%USERPROFILE%\.friday\config.json`:
+
+- `user_name` — how Friday addresses you
+- `voice.wake_word` — change wake phrase
+- `browser.preferred` — chrome or brave
+- `web.default_city` — default weather city
+- `app_allowlist` — add more launchable apps
