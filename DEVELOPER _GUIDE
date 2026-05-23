@@ -1,0 +1,95 @@
+## Architecture
+
+```
+User (voice/text)
+    -> VoiceEngine / UI CommandInput
+    -> CommandRouter
+    -> Policy Guardrails (evaluate)
+    -> Intent Classifier
+    -> Integrations (browser, apps, search, news, weather)
+    -> Response (UI + TTS)
+
+Background Listener (separate process)
+    -> STT wake detection
+    -> launcher.activate_friday()
+    -> IPC (pending_command.txt, wake_signal)
+```
+
+---
+
+## Main Modules
+
+| Module | Purpose |
+|--------|---------|
+| `friday/main.py` | Qt app entry, wires UI + voice + IPC |
+| `friday/config.py` | Settings persistence |
+| `friday/policy/guardrails.py` | File-access blocker |
+| `friday/core/router.py` | Command dispatch |
+| `friday/core/intents.py` | Intent classification |
+| `friday/voice/engine.py` | In-app voice loop |
+| `friday/background_listener.py` | Always-on wake listener |
+| `friday/launcher.py` | Launch/focus GUI |
+| `friday/ipc.py` | Inter-process files |
+| `friday/integrations/*` | External services |
+
+---
+
+## Running Tests
+
+```powershell
+.\.venv\Scripts\activate
+python -m unittest discover -v tests
+```
+
+Or: `test.bat`
+
+---
+
+## Adding a New App to Allowlist
+
+In `config.json`:
+
+```json
+"app_allowlist": {
+  "notion": "notion"
+}
+```
+
+App must be on Windows PATH or Start Menu.
+
+---
+
+## Adding a Site Shortcut
+
+```json
+"site_shortcuts": {
+  "netflix": "https://www.netflix.com"
+}
+```
+
+---
+
+## Packaging
+
+```powershell
+python -m friday.installer.build_installer
+```
+
+Spec file: `friday/installer/Friday.spec`
+
+---
+
+## Extending Intents
+
+1. Add `IntentName` in `friday/core/intents.py`
+2. Add classification rules in `classify()`
+3. Add handler in `CommandRouter._dispatch()`
+4. Add tests in `tests/`
+
+---
+
+## Security Notes
+
+- Policy runs **before** routing — never bypass
+- `block_file_access` is forced true in config loader
+- Browser module rejects `file://` URLs
