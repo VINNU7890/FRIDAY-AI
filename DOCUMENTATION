@@ -1,0 +1,180 @@
+
+**Version 0.1.0 | Windows Personal AI Assistant**
+
+---
+
+## Table of Contents
+
+1. Project Overview
+2. Features
+3. Installation
+4. User Manual
+5. Voice and Wake Word
+6. Configuration
+7. Safety Policy
+8. Architecture
+9. GitHub Upload
+10. License
+
+---
+
+## 1. Project Overview
+
+Friday is a Python desktop assistant inspired by Iron Man's F.R.I.D.A.Y. It combines a futuristic UI, voice control, internet awareness, and controlled system automation with strict file-access blocking.
+
+**Repository name suggestion:** friday-assistant  
+**License:** MIT
+
+---
+
+## 2. Features
+
+- PySide6 neon HUD interface with chat panel
+- Wake-word voice: "Friday"
+- Background listener launches app when closed
+- Text command input
+- DuckDuckGo search (no API key)
+- RSS news headlines (BBC, Reuters, NPR, Al Jazeera)
+- Open-Meteo weather (no API key)
+- Chrome / Brave browser control
+- App allowlist launcher
+- Policy engine blocks all file access
+- PyInstaller EXE packaging
+- Windows login auto-start for listener
+
+---
+
+## 3. Installation
+
+### Requirements
+- Windows 10/11
+- Python 3.12 (recommended)
+- Microphone + internet for voice
+
+### Steps
+1. `install.bat` — creates venv, installs deps
+2. `run.bat` — launches GUI
+3. `Start Friday Listener.bat` — background wake word
+4. `Enable Friday at Login.bat` — startup shortcut
+5. `build_exe.bat` — optional EXE build
+
+### PyAudio on Windows
+Python 3.12 has official PyAudio wheels on PyPI. Python 3.14 may require a prebuilt wheel or C++ build tools.
+
+---
+
+## 4. User Manual
+
+### Commands
+- Friday, open Chrome / Brave / Spotify
+- Friday, open YouTube / GitHub
+- Friday, search [query]
+- Friday, weather in [city]
+- Friday, what's happening in the world
+- Friday, what time is it
+- Friday, tell me a joke
+- Friday, help
+- Friday, goodbye
+
+### UI
+- Type in command box at bottom
+- MIC toggles in-app listening
+- Sidebar shows status and clock
+
+---
+
+## 5. Voice and Wake Word
+
+### In-app voice
+Runs while Friday window is open. Listens for wake word then captures command.
+
+### Background listener
+Process: `pythonw -m friday.background_listener`
+- Hears "Friday" when app is closed
+- Launches or focuses Friday window
+- Queues command via `~/.friday/pending_command.txt`
+
+### Config keys
+```json
+"voice": {
+  "wake_word": "friday",
+  "always_listen_for_wake": true,
+  "launch_on_wake_word": true,
+  "start_listener_at_login": true
+}
+```
+
+---
+
+## 6. Configuration
+
+File: `%USERPROFILE%\.friday\config.json`
+
+| Key | Purpose |
+|-----|---------|
+| user_name | Greeting name |
+| voice.wake_word | Wake phrase |
+| browser.preferred | chrome or brave |
+| web.default_city | Weather default |
+| app_allowlist | Apps Friday can open |
+| site_shortcuts | URL shortcuts |
+
+---
+
+## 7. Safety Policy
+
+Friday ALWAYS blocks:
+- File/folder read, write, open, list
+- Drive paths (C:\, D:\, etc.)
+- file:// URLs
+- cmd, PowerShell, Explorer
+- Shutdown, uninstall, registry
+
+Enforced in `friday/policy/guardrails.py` before any command runs.
+
+---
+
+## 8. Architecture
+
+```
+friday/
+  main.py              GUI entry
+  background_listener.py   Wake listener daemon
+  launcher.py          Launch/focus app
+  ipc.py               IPC files
+  config.py            Settings
+  policy/              Safety
+  core/                Router, intents, brain
+  ui/                  PySide6 interface
+  voice/               STT, TTS, engine
+  integrations/        Browser, apps, web APIs
+  installer/           PyInstaller
+tests/                 Unit tests
+```
+
+---
+
+## 9. GitHub Upload
+
+```powershell
+cd friday-assistant
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/USERNAME/friday-assistant.git
+git push -u origin main
+```
+
+Include `docs/pdf/` folder with generated PDFs.
+
+---
+
+## 10. License
+
+MIT License — Copyright 2026 Friday Assistant Project
+
+See LICENSE file in repository root.
+
+---
+
+*End of Complete Documentation*
