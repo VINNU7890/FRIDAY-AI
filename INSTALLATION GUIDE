@@ -1,0 +1,91 @@
+## Requirements
+
+- **OS:** Windows 10 or 11 (64-bit)
+- **Python:** 3.12 recommended (required for PyAudio microphone support)
+- **RAM:** 4 GB minimum, 8 GB recommended
+- **Microphone:** For voice features
+- **Internet:** For speech recognition, search, news, weather
+
+---
+
+## Step 1 — Install Python 3.12
+
+1. Download from https://www.python.org/downloads/
+2. Run the installer
+3. Check **"Add Python to PATH"**
+4. Verify in PowerShell:
+   ```
+   py -3.12 --version
+   ```
+
+---
+
+## Step 2 — Install Friday
+
+Open PowerShell in the project folder:
+
+```powershell
+cd friday-assistant
+.\install.bat
+```
+
+This creates `.venv` and installs all dependencies including PyAudio.
+
+---
+
+## Step 3 — Launch Friday
+
+```powershell
+.\run.bat
+```
+
+Or use the Desktop shortcut: **Friday Assistant**
+
+---
+
+## Step 4 — Enable Voice Launch (Optional)
+
+To open Friday by saying "Friday" even when the app is closed:
+
+1. Run `Start Friday Listener.bat`
+2. Run `Enable Friday at Login.bat` (auto-start at Windows login)
+
+---
+
+## Step 5 — Build Standalone EXE (Optional)
+
+```powershell
+.\build_exe.bat
+```
+
+Output: `dist\Friday\Friday.exe`
+
+---
+
+## Troubleshooting
+
+### Voice not working
+
+- Use Python 3.12 (not 3.14) for PyAudio
+- Allow microphone in Windows Settings > Privacy > Microphone
+- Run `Start Friday Listener.bat`
+
+### PyAudio install fails
+
+```powershell
+.\.venv\Scripts\activate
+pip install PyAudio
+```
+
+### App does not open on "Friday"
+
+- Confirm listener is running (check Task Manager for pythonw.exe)
+- Re-run `Start Friday Listener.bat`
+
+---
+
+## Configuration File
+
+Location: `%USERPROFILE%\.friday\config.json`
+
+Created automatically on first launch.
